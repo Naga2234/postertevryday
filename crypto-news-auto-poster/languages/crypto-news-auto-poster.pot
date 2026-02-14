@@ -1,0 +1,158 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Crypto News Auto Poster 3.5.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-01-01 00:00+0000\n"
+"PO-Revision-Date: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Каждые 5 минут"
+msgstr ""
+
+msgid "Каждые 10 минут"
+msgstr ""
+
+msgid "Crypto News"
+msgstr ""
+
+msgid "🚀 Crypto News Auto Poster v%s"
+msgstr ""
+
+msgid "Clean Edition - без тегов и хэштегов"
+msgstr ""
+
+msgid "⏱️ АВТОПОСТИНГ РАБОТАЕТ"
+msgstr ""
+
+msgid "Время работы: %s"
+msgstr ""
+
+msgid "🆕 Новое в v3.5.0 CLEAN"
+msgstr ""
+
+msgid "✅ ПОЛНОСТЬЮ УДАЛЕНЫ теги"
+msgstr ""
+
+msgid "✅ ПОЛНОСТЬЮ УДАЛЕНЫ хэштеги"
+msgstr ""
+
+msgid "✅ Чистые посты без меток"
+msgstr ""
+
+msgid "✅ Идеальное форматирование"
+msgstr ""
+
+msgid "✅ Без \"Также читайте\""
+msgstr ""
+
+msgid "✅ Без дублей фото"
+msgstr ""
+
+msgid "📊 Проверено"
+msgstr ""
+
+msgid "✅ Опубликовано"
+msgstr ""
+
+msgid "🚫 Отфильтровано"
+msgstr ""
+
+msgid "⚙️ Автопостинг"
+msgstr ""
+
+msgid "Статус:"
+msgstr ""
+
+msgid "Включен"
+msgstr ""
+
+msgid "Выключен"
+msgstr ""
+
+msgid "Время:"
+msgstr ""
+
+msgid "Интервал:"
+msgstr ""
+
+msgid "5 минут"
+msgstr ""
+
+msgid "10 минут"
+msgstr ""
+
+msgid "1 час"
+msgstr ""
+
+msgid "Постов:"
+msgstr ""
+
+msgid "Источники:"
+msgstr ""
+
+msgid "Сохранить"
+msgstr ""
+
+msgid "⏸️ Стоп"
+msgstr ""
+
+msgid "▶️ Старт"
+msgstr ""
+
+msgid "🔄 Вручную"
+msgstr ""
+
+msgid "🚫 Стоп-слова"
+msgstr ""
+
+msgid "📰 Последние посты"
+msgstr ""
+
+msgid "Ред."
+msgstr ""
+
+msgid "Нет постов"
+msgstr ""
+
+msgid "Загрузка..."
+msgstr ""
+
+msgid "✅ Сохранено!"
+msgstr ""
+
+msgid "Не удалось выполнить действие. Попробуйте позже."
+msgstr ""
+
+msgid "Недостаточно прав"
+msgstr ""
+
+msgid "⏸️ Остановлен"
+msgstr ""
+
+msgid "✅ Запущен!"
+msgstr ""
+
+msgid "📊 РЕЗУЛЬТАТ:"
+msgstr ""
+
+msgid "Найдено: %d"
+msgstr ""
+
+msgid "Опубликовано: %d"
+msgstr ""
+
+msgid "Пропущено: %d"
+msgstr ""
+
+msgid "Фото: %d"
+msgstr ""
+
+#. translators: 1: hours, 2: minutes
+msgid "%1$dч %2$dмин"
+msgstr ""
