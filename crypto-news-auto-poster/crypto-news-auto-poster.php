@@ -24,7 +24,7 @@ function cnap_install() {
     add_option('cnap_sources', array('cryptonewsz'));
     add_option('cnap_stopwords', "Subscribe\nFollow us\nJoin us\nSign up\nNewsletter\nDisclaimer\nAdvertisement");
     add_option('cnap_cache_ttl', 300);
-    add_option('cnap_fresh_window_hours', 36);
+    add_option('cnap_fresh_window_hours', 24);
     add_option('cnap_log_errors', 0);
     add_option('cnap_seen_feed_links', array());
     add_option('cnap_stats', array(
@@ -70,7 +70,7 @@ function cnap_mark_feed_link_as_seen($seen_links, $link) {
 }
 
 function cnap_get_fresh_window_hours() {
-    $hours = intval(get_option('cnap_fresh_window_hours', 36));
+    $hours = intval(get_option('cnap_fresh_window_hours', 24));
     if ($hours < 6) {
         $hours = 6;
     }
@@ -79,6 +79,17 @@ function cnap_get_fresh_window_hours() {
     }
 
     return apply_filters('cnap_fresh_window_hours', $hours);
+}
+
+function cnap_is_today_news_item($published_at) {
+    if ($published_at <= 0) {
+        return false;
+    }
+
+    $item_day = wp_date('Y-m-d', $published_at);
+    $today = wp_date('Y-m-d');
+
+    return $item_day === $today;
 }
 
 add_filter('cron_schedules', 'cnap_cron_schedules');
@@ -569,7 +580,7 @@ function cnap_get_news() {
 
         foreach ($items as $item) {
             $published_at = isset($item['published_at']) ? intval($item['published_at']) : time();
-            if ($published_at < $fresh_cutoff) {
+            if ($published_at < $fresh_cutoff || !cnap_is_today_news_item($published_at)) {
                 continue;
             }
 
