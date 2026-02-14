@@ -26,6 +26,7 @@ function cnap_install() {
     add_option('cnap_cache_ttl', 300);
     add_option('cnap_fresh_window_hours', 36);
     add_option('cnap_log_errors', 0);
+    add_option('cnap_seen_feed_links', array());
     add_option('cnap_stats', array(
         'total_checked' => 0,
         'total_published' => 0,
@@ -34,6 +35,38 @@ function cnap_install() {
         'start_time' => 0,
         'uptime' => 0
     ));
+}
+
+function cnap_get_seen_feed_links() {
+    $seen = get_option('cnap_seen_feed_links', array());
+    if (!is_array($seen)) {
+        return array();
+    }
+
+    $now = time();
+    $max_age = 7 * DAY_IN_SECONDS;
+    foreach ($seen as $link => $timestamp) {
+        if (!is_numeric($timestamp) || (intval($timestamp) + $max_age) < $now) {
+            unset($seen[$link]);
+        }
+    }
+
+    return $seen;
+}
+
+function cnap_mark_feed_link_as_seen($seen_links, $link) {
+    if (empty($link)) {
+        return $seen_links;
+    }
+
+    $seen_links[$link] = time();
+
+    if (count($seen_links) > 2000) {
+        asort($seen_links);
+        $seen_links = array_slice($seen_links, -2000, null, true);
+    }
+
+    return $seen_links;
 }
 
 function cnap_get_fresh_window_hours() {
@@ -512,6 +545,8 @@ function cnap_get_news() {
     $stopwords = array_filter(array_map('trim', explode("\n", $stopwords_text)));
     $selected_sources = cnap_get_selected_sources();
     $available_sources = cnap_get_available_sources();
+    $seen_feed_links = cnap_get_seen_feed_links();
+    $seen_links_changed = false;
 
     $stats = array(
         'fetched' => 0,
@@ -538,6 +573,12 @@ function cnap_get_news() {
                 continue;
             }
 
+            $link = isset($item['link']) ? $item['link'] : '';
+            if (empty($link) || isset($seen_feed_links[$link])) {
+                $stats['skipped']++;
+                continue;
+            }
+
             $item['source_name'] = $source['name'];
             $all_items[] = $item;
         }
@@ -559,6 +600,11 @@ function cnap_get_news() {
         if (empty($link)) {
             $stats['skipped']++;
             continue;
+        }
+
+        if (!isset($seen_feed_links[$link])) {
+            $seen_feed_links = cnap_mark_feed_link_as_seen($seen_feed_links, $link);
+            $seen_links_changed = true;
         }
 
         $exists = get_posts(array(
@@ -623,7 +669,13 @@ function cnap_get_news() {
 
             $stats['published']++;
             $stats['total_photos'] += $full['photos_count'];
+        } else {
+            $stats['skipped']++;
         }
+    }
+
+    if ($seen_links_changed) {
+        update_option('cnap_seen_feed_links', $seen_feed_links);
     }
 
     $global_stats = get_option('cnap_stats', array());
